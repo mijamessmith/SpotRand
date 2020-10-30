@@ -1,0 +1,15 @@
+{
+  "name": "spotind",
+  "version": "2.0.0",
+  "description": "A randomized Spotify Playlist Generator",
+  "main": "app.js",
+  "dependencies": {
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Smith",
+  "license": "MIT"
+}
