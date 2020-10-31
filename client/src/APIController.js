@@ -49,9 +49,9 @@ async function checkIfUserHasPlaylist(authTokenFromParam) {
     return output;
 }
 
-async function getTracksFromPlaylist(authTokenFromParam) {
+async function getTracksFromPlaylist(authTokenFromParam, playlistId) {
     let output;
-    let address = "https://api.spotify.com/v1/me/playlists"
+    let address = "https://api.spotify.com/v1/me/playlists/" + playlistId +"/tracks"
     //;
     await axios({
         method: 'GET',

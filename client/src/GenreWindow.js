@@ -5,12 +5,12 @@ import { getTracksFromPlaylist } from "./APIController"
 
 
 export default function GenreWindow(props) {
-    var { authToken } = props;
+    var { authToken, playlistId } = props;
     const [visible, changeVisible] = useState(false)
 
     const handleClick = async () => {
-        let playlist = await getTracksFromPlaylist(authToken);
-        console.log(playlist)
+        let playlistTracks = await getTracksFromPlaylist(authToken, playlistId);
+        console.log(playlistTracks)
         changeVisible(!visible);
     }
 
