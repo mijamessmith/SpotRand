@@ -10,15 +10,15 @@ export default function Stats(props) {
     const [stats, setStats] = useState(null);
 
     const handleClick = async () => {
-        let playlist = await getTracksFromPlaylist(authToken);
+        let playlist = await getTracksFromPlaylist(authToken, playlistId);
         console.log(playlist)
         debugger;
         changeVisible(!visible);
     }
 
     return (
-        <div className='GenreWindow'>
-            <button className="GenreWindow-button" onClick={handleClick}>Stats</button>
+        <div className='Stats'>
+            <button className="Stats-btn" onClick={handleClick}>Stats</button>
             {visible ?
                 <Graph
                     toggle={handleClick}

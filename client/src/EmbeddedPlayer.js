@@ -8,7 +8,7 @@ function EmbeddedPlayer({ trackIdFromDislike }) {
     useEffect(() => {
         getiframeSongId(trackIdFromDislike);
         //enable autoplay of function: currently doesn't work
-        autoClick();
+        //autoClick();
     }, [trackIdFromDislike]);
 
     //function clickPlay(el){

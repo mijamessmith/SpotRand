@@ -6,8 +6,7 @@ const spotifyApi = new SpotifyWebApi();
 function getASpotifyTrackFromRandomStr(searchStr) {
 
            return spotifyApi.searchTracks(searchStr)
-            .then(data => {
-                console.log('Searched:' + searchStr, data);             
+            .then(data => {           
                 return data.tracks.items[Math.floor(Math.random() * 20)].id;
             }).catch((err) => {
                 console.log(err)
@@ -30,7 +29,6 @@ async function checkIfUserHasPlaylist(authTokenFromParam) {
             "Content-Type": "application/json"
         }
     }).then(response => {
-        console.log('got the playlists:' + response);
         //;
         let items = response.data.items
         let play = items.filter((ps) => ps.name == 'Testing Axios Playlist')
@@ -49,37 +47,63 @@ async function checkIfUserHasPlaylist(authTokenFromParam) {
     return output;
 }
 
-async function getTracksFromPlaylist(authTokenFromParam) {
+
+
+async function getTracksFromPlaylist(authToken, playlistId) {
     let output;
-    let address = "https://api.spotify.com/v1/me/playlists"
+    let address = "https://api.spotify.com/v1/playlists/" + `${playlistId}` + "/tracks"
     //;
     await axios({
         method: 'GET',
         url: address,
         responseType: 'json',
         headers: {
-            'Authorization': 'Bearer ' + authTokenFromParam,
+            'Authorization': 'Bearer ' + authToken,
             "Content-Type": "application/json"
         }
     }).then(response => {
-        console.log('Client received:' + response);
-        //;
-        let items = response.data.items
-        let play = items.filter((ps) => ps.name == 'Testing Axios Playlist')
-        //;
-        if (play.length > 0) {
-            let playlist = play[0];
-            output = playlist;
-            return playlist;
+        debugger;
+        if (response) {
+            output = response.data.items;
+            return response;
 
-        } else if (play.length == 0) {
+        } else if (!response) {
             console.log('no app playlist yet')
-            output = null;
-            return null;
+            output = "empty";
+            return;
         }
     }).catch((err) => console.log(err));
     return output;
 }
+
+async function getArtistInformation(authToken, artistId) {
+    let output;
+    let address = "GET https://api.spotify.com/v1/artists/" + `${artistId}`
+    //;
+    await axios({
+        method: 'GET',
+        url: address,
+        responseType: 'json',
+        headers: {
+            'Authorization': 'Bearer ' + authToken,
+            "Content-Type": "application/json"
+        }
+    }).then(response => {
+        debugger;
+        if (response) {
+            output = response.data;
+            return response;
+
+        } else if (!response) {
+            console.log('cannot find artist')
+            output = "empty";
+            return;
+        }
+    }).catch((err) => console.log(err));
+    return output;
+}
+
+
 
 async function createNewPlaylist(userIdFromParam, authTokenFromParam) {
 
@@ -105,6 +129,32 @@ async function createNewPlaylist(userIdFromParam, authTokenFromParam) {
     return output;
 }
 
+//async function getTrackInformation(authToken, trackId) {
+//    let output;
+//    let address = "GET https://api.spotify.com/v1/artists/" + `${artistId}`
+//    //;
+//    await axios({
+//        method: 'GET',
+//        url: address,
+//        responseType: 'json',
+//        headers: {
+//            'Authorization': 'Bearer ' + authToken,
+//            "Content-Type": "application/json"
+//        }
+//    }).then(response => {
+//        debugger;
+//        if (response) {
+//            output = response.data;
+//            return response;
+
+//        } else if (!response) {
+//            console.log('cannot find artist')
+//            output = "empty";
+//            return;
+//        }
+//    }).catch((err) => console.log(err));
+//    return output;
+//}
 
 async function addTrackToPlaylist(trackIdFromParam, PlaylistId, authTokenFromParam) {
     //need trackIdFromParam, PlaylistId, authTokenFromParam
@@ -124,7 +174,6 @@ async function addTrackToPlaylist(trackIdFromParam, PlaylistId, authTokenFromPar
                 uris: trackIdParam
             }
         }).then(response => {
-            console.log('posted track to playlist. ' + response)
             output = true;
            return true     
         }).catch((err) => console.log(err));
@@ -144,16 +193,14 @@ async function handleLikedTrack(userID, trackID, authT, stateStoredPlaylistId = 
     if (stateStoredPlaylistId) {
         await addTrackToPlaylist(trackIdFromParam, PlaylistId, authTokenFromParam)
             .then((res) => {
-                console.log('finished adding track' + res);
-                //;
+              return
             }).catch((er) => console.log(er));
 
     } else if (!stateStoredPlaylistId) {
         //check if user has playlist
         await checkIfUserHasPlaylist(authTokenFromParam)
             .then(async (res) => {
-                console.log('finished checking if user has playlist:' + res);
-                //;
+               
                 if (res[0] == true) {
                     //set playlist Id
                     PlaylistId = res[1]
@@ -161,8 +208,7 @@ async function handleLikedTrack(userID, trackID, authT, stateStoredPlaylistId = 
                     //add to track
                     await addTrackToPlaylist(trackIdFromParam, PlaylistId, authTokenFromParam)
                         .then((res) => {
-                            console.log('finished adding track' + res);
-                            //;
+
                         }).catch((er) => console.log(er));
                 }
 
@@ -190,4 +236,4 @@ async function handleLikedTrack(userID, trackID, authT, stateStoredPlaylistId = 
 
 
 
-export { getASpotifyTrackFromRandomStr, handleLikedTrack, getTracksFromPlaylist }
+export { getArtistInformation, getASpotifyTrackFromRandomStr, handleLikedTrack, getTracksFromPlaylist }

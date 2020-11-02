@@ -20,3 +20,11 @@
 .Player-icon-container img {
 
 }
+
+.Player-ArtistInformation{
+    max-height: 100px;
+    max-width: 50px;
+    background-color: white;
+    color: black;
+    border: 3px solid black;
+}

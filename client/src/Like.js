@@ -5,7 +5,7 @@ import heart from './assets/images/heart.svg'
 
 export default function Like(props) {
     var { updatePlayerTrack, updateCount, currentTrack, playlist, user, authToken, updatePlaylist } = props;
-    //need to fix the state here;
+ 
     const [searchStr, getSearchStr] = useState('brandnewday');
     const [track, getTrack] = useState("4WhyHQ2BXi2VU1iaFbF6jv");
     const [message, getMessage] = useState("Message blank")
@@ -16,26 +16,23 @@ export default function Like(props) {
         async function getData() {
             let newTrackId = await getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch())
             if (newTrackId) {
-                console.log("inside the Like useEffect function with: " + newTrackId)
-                //set Like State trac
                 getTrack(newTrackId);
             } else console.log("did not receive newTrack in Like.js")
         } getData()
     }, [searchStr]);
 
     async function handleLike() {
-        console.log('inside the like')
         let output;
-            //;
+           
             if (playlist) {
-                //;
+      
                 await handleLikedTrack(user, currentTrack, authToken, playlist)
                     .then((response) => {
                         output = response                       
                     }).catch(er => console.log(er))
 
             } else if (!playlist) {
-                //;
+              
                 await handleLikedTrack(user, currentTrack, authToken)
                     .then((response) => {
                         output = response;

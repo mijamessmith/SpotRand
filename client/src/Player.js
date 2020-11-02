@@ -3,7 +3,7 @@ import EmbeddedPlayer from './EmbeddedPlayer'
 import Dislike from './Dislike';
 import Like from './Like'
 import { getRandomStrForTrackSearch } from "./utils";
-import { getASpotifyTrackFromRandomStr } from "./APIController"
+import { getASpotifyTrackFromRandomStr, getArtistInformation } from "./APIController"
 
 function Player(props) {
 
@@ -13,6 +13,8 @@ function Player(props) {
     const [playlistId, getplayListId] = useState(null);
     const [trackLikeCount, changeTrackLikeCount] = useState(0);
     const [trackDislikeCount, changeTrackDislikeCount] = useState(0);
+    const [artistId, setArtistId] = useState(null);
+    const [artistData, setArtistData] = useState(null);
 
     //state updater functions to be passed as props
 
@@ -31,6 +33,16 @@ function Player(props) {
         updateTrackStr();
     }
 
+    const handleGetArtistInformation = async () => {
+        if (artistId) {
+            let artist = await getArtistInformation(authToken, artistId);
+            if (artist) {
+                setArtistData(artist);
+            }
+        } else {
+
+        }
+    }
 
     const updatePlaylistId = (pID) => {
         getplayListId(pID);
@@ -41,7 +53,6 @@ function Player(props) {
         async function getData() {
             let newTrackId = await getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch())
             if (newTrackId) {
-                console.log("inside the Player useEffect function with: " + newTrackId)
                 changeTrackId(newTrackId);        
             } else console.log("did not receive newTrack in Dislike.js")
         } getData()
@@ -53,6 +64,7 @@ function Player(props) {
             <div className="Player-icon-container">
                 <Dislike updateDislike={updateDislikeCount} />
                 <Like updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} />
+                <button className="Player-ArtistInformation" onClick={handleGetArtistInformation}>Get Info on Artist</button>
             </div>
         </div>
         
