@@ -14,7 +14,7 @@ import './assets/css/GenreWindow.css';
 import LoggedOutLanding from './pages/LoggedOutLanding'
 import Player from './Player';
 import Layout from './Layout';
-import GenreWindow from "./GenreWindow"
+import Stats from "./Stats"
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 
@@ -47,19 +47,23 @@ class App extends Component {
             playlist: {},
             playlistId: null
         }
+
+        this.playlistIdHandler = this.playlistIdHandler.bind(this);
+        this.playlistTrackHandler = this.playlistTrackHandler.bind(this);
+
     }
 
-    getNowPlaying() {
-        spotifyApi.getMyCurrentPlaybackState()
-            .then((response) => {
-                this.setState({
-                    nowPlaying: {
-                        name: response.item.name,
-                        albumArt: response.item.album.images[0].url
-                    }
-                });
-            }).catch((err) => console.log(err));
-    };
+    playlistIdHandler(id) {
+        this.setState({
+            playlistId: id
+        })
+    }
+
+    playlistTrackHandler(tracks) {
+        this.setState({
+            playlist: tracks
+        })
+    }
 
 
     render() {
@@ -72,9 +76,9 @@ class App extends Component {
 
             {this.state.loggedIn &&
                 <div className="loggedIn">  
-                <Layout loggedIn={true}/>
-                <Player authToken={this.state.accessToken} userId={this.state.userId} />
-                <GenreWindow authToken={this.state.accessToken}/>
+                <Layout loggedIn={true} />
+                <Player authToken={this.state.accessToken} userId={this.state.userId} playlistIdHandler={this.playlistIdHandler} />
+                <Stats authToken={this.state.accessToken} userId={this.state.userId} playlistId={this.state.playlistId} />
             </div>
             }
       </div>

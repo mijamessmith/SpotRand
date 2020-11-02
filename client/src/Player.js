@@ -7,7 +7,7 @@ import { getASpotifyTrackFromRandomStr } from "./APIController"
 
 function Player(props) {
 
-    var { authToken, userId } = props;
+    var { authToken, userId, playlistIdHandler } = props;
 
     const [trackId, changeTrackId] = useState("4WhyHQ2BXi2VU1iaFbF6jv");
     const [playlistId, getplayListId] = useState(null);
@@ -34,6 +34,7 @@ function Player(props) {
 
     const updatePlaylistId = (pID) => {
         getplayListId(pID);
+        playlistIdHandler(pID);
     }
 
     const updateTrackStr = () => {

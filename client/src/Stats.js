@@ -4,19 +4,21 @@ import Graph from './Graph';
 import { getTracksFromPlaylist } from "./APIController"
 
 
-export default function GenreWindow(props) {
+export default function Stats(props) {
     var { authToken, playlistId } = props;
     const [visible, changeVisible] = useState(false)
+    const [stats, setStats] = useState(null);
 
     const handleClick = async () => {
         let playlist = await getTracksFromPlaylist(authToken);
         console.log(playlist)
+        debugger;
         changeVisible(!visible);
     }
 
     return (
         <div className='GenreWindow'>
-            <button className="GenreWindow-button" onClick={handleClick}>Get My Genres</button>
+            <button className="GenreWindow-button" onClick={handleClick}>Stats</button>
             {visible ?
                 <Graph
                     toggle={handleClick}
