@@ -1,13 +1,17 @@
 import axios from 'axios';
 
+import { getArtistIdFromData } from './utils'
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 
 function getASpotifyTrackFromRandomStr(searchStr) {
 
            return spotifyApi.searchTracks(searchStr)
-            .then(data => {           
-                return data.tracks.items[Math.floor(Math.random() * 20)].id;
+               .then(data => {   
+                   debugger;
+                   let trackId = data.tracks.items[Math.floor(Math.random() * 20)].id;
+                   let artistId = getArtistIdFromData(trackId);
+                   return [trackId, artistId]
             }).catch((err) => {
                 console.log(err)
             })
@@ -76,34 +80,6 @@ async function getTracksFromPlaylist(authToken, playlistId) {
     return output;
 }
 
-async function getArtistInformation(authToken, artistId) {
-    let output;
-    let address = "GET https://api.spotify.com/v1/artists/" + `${artistId}`
-    //;
-    await axios({
-        method: 'GET',
-        url: address,
-        responseType: 'json',
-        headers: {
-            'Authorization': 'Bearer ' + authToken,
-            "Content-Type": "application/json"
-        }
-    }).then(response => {
-        debugger;
-        if (response) {
-            output = response.data;
-            return response;
-
-        } else if (!response) {
-            console.log('cannot find artist')
-            output = "empty";
-            return;
-        }
-    }).catch((err) => console.log(err));
-    return output;
-}
-
-
 
 async function createNewPlaylist(userIdFromParam, authTokenFromParam) {
 
@@ -128,6 +104,38 @@ async function createNewPlaylist(userIdFromParam, authTokenFromParam) {
     }).catch((err) => console.log(err));
     return output;
 }
+
+async function handleUpdateArtist(authToken) {
+
+}
+
+async function getArtistInformation(authToken, artistId) {
+    let output;
+    let address = "GET https://api.spotify.com/v1/artists/" + `${artistId}`
+    
+    await axios({
+        method: 'GET',
+        url: address,
+        responseType: 'json',
+        headers: {
+            'Authorization': 'Bearer ' + authToken,
+            "Content-Type": "application/json"
+        }
+    }).then(response => {
+        debugger;
+        if (response) {
+            output = response.data;
+            return response;
+
+        } else if (!response) {
+            console.log('cannot find artist')
+            output = "empty";
+            return;
+        }
+    }).catch((err) => console.log(err));
+    return output;
+}
+
 
 //async function getTrackInformation(authToken, trackId) {
 //    let output;

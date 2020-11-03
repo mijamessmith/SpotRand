@@ -10,7 +10,6 @@ export default function Dislike(props) {
     const [track, getTrack] = useState("4WhyHQ2BXi2VU1iaFbF6jv");
 
     const handleClick = () => {
-        //;
         updateDislike(1);
     }
 

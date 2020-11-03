@@ -46,7 +46,8 @@ class App extends Component {
             accessToken: token,
             params: params,
             playlist: {},
-            playlistId: null
+            playlistId: null,
+            firstTrackSearchString: getRandomStrForTrackSearch()
         }
 
         this.playlistIdHandler = this.playlistIdHandler.bind(this);
@@ -89,7 +90,7 @@ class App extends Component {
             {this.state.loggedIn &&
                 <div className="loggedIn">  
                 <Layout loggedIn={true} />
-                <Player authToken={this.state.accessToken} userId={this.state.userId} playlistIdHandler={this.playlistIdHandler} />
+                <Player authToken={this.state.accessToken} userId={this.state.userId} playlistIdHandler={this.state.playlistIdHandler} firstSearchString={firstTrackSearchString} />
                 <button className="getTracks" onClick={this.getTracks}>get Tracks</button>
             </div>
             }

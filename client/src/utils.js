@@ -18,6 +18,13 @@ function getRandomStrForTrackSearch() {
     return outputStr;
 }
 
+function getArtistIdFromData(data) {
+    if (data) {
+        debugger;
+        return data.artists[0].id
+    } else return null;
+}
+
 function getHashParams() {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -64,6 +71,7 @@ export {
     getRandomColorArray,
     getHashParams,
     getRandomStrForTrackSearch,
-    getQueryParams
+    getQueryParams,
+    getArtistIdFromData
 } 
 

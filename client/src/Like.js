@@ -4,9 +4,9 @@ import { getASpotifyTrackFromRandomStr, handleLikedTrack } from "./APIController
 import heart from './assets/images/heart.svg'
 
 export default function Like(props) {
-    var { updatePlayerTrack, updateCount, currentTrack, playlist, user, authToken, updatePlaylist } = props;
- 
-    const [searchStr, getSearchStr] = useState('brandnewday');
+    var { updatePlayerTrack, updateCount, currentTrack, playlist, handleArtistId, user, authToken, updatePlaylist, firstSearchString } = props;
+
+    const [searchStr, getSearchStr] = useState(firstSearchString);
     const [track, getTrack] = useState("4WhyHQ2BXi2VU1iaFbF6jv");
     const [message, getMessage] = useState("Message blank")
 
@@ -14,11 +14,21 @@ export default function Like(props) {
 
     useEffect(() => {
         async function getData() {
-            let newTrackId = await getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch())
-            if (newTrackId) {
-                getTrack(newTrackId);
-            } else console.log("did not receive newTrack in Like.js")
-        } getData()
+
+
+            let data = await getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch())[0]
+            debugger;
+            if (data) {
+                let newTrackId = data[0];
+                let newArtistId = data[1];
+
+                debugger;
+                if (newTrackId) {
+                    getTrack(newTrackId);
+                    handleArtistId(newArtistId);
+                } else console.log("did not receive newTrack in Like.js")
+            }
+        }getData()
     }, [searchStr]);
 
     async function handleLike() {

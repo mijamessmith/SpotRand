@@ -7,7 +7,7 @@ import { getASpotifyTrackFromRandomStr, getArtistInformation } from "./APIContro
 
 function Player(props) {
 
-    var { authToken, userId, playlistIdHandler } = props;
+    var { authToken, userId, playlistIdHandler, firstSearchString } = props;
 
     const [trackId, changeTrackId] = useState("4WhyHQ2BXi2VU1iaFbF6jv");
     const [playlistId, getplayListId] = useState(null);
@@ -26,6 +26,10 @@ function Player(props) {
         //how to increment? Can we add one in changeTrackLikecount
         changeTrackLikeCount(trackLikeCount + TLC); 
         updateTrackStr();
+    }
+
+    const handleArtistId = (id) => {
+        setArtistId(id);
     }
 
     const updateDislikeCount = (TLC) => {
@@ -62,8 +66,8 @@ function Player(props) {
         <div className="Player">
             <EmbeddedPlayer trackIdFromDislike={trackId} />
             <div className="Player-icon-container">
-                <Dislike updateDislike={updateDislikeCount} />
-                <Like updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} />
+                <Dislike handleArtistId={handleArtistId} updateDislike={updateDislikeCount} />
+                <Like handleArtistId={handleArtistId} updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} firstSearchString={firstSearchString} />
                 <button className="Player-ArtistInformation" onClick={handleGetArtistInformation}>Get Info on Artist</button>
             </div>
         </div>
