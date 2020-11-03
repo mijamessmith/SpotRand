@@ -6,8 +6,7 @@ import sad from './assets/images/sad.svg'
 
 export default function Dislike(props) {
     var { updateDislike } = props;
-    const [searchStr, getSearchStr] = useState('brandnewday');
-    const [track, getTrack] = useState("4WhyHQ2BXi2VU1iaFbF6jv");
+   
 
     const handleClick = () => {
         updateDislike(1);

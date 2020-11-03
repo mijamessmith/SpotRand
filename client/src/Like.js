@@ -4,7 +4,7 @@ import { getASpotifyTrackFromRandomStr, handleLikedTrack } from "./APIController
 import heart from './assets/images/heart.svg'
 
 export default function Like(props) {
-    var { updatePlayerTrack, updateCount, currentTrack, playlist, handleArtistId, user, authToken, updatePlaylist, firstSearchString } = props;
+    var { updatePlayerTrack, updateCount, currentTrack, playlist, handleArtistId, user, authToken, updatePlaylist, isFirstSearch, updateIsFirstSearch, firstSearchString } = props;
 
     const [searchStr, getSearchStr] = useState(firstSearchString);
     const [track, getTrack] = useState("4WhyHQ2BXi2VU1iaFbF6jv");
@@ -13,22 +13,22 @@ export default function Like(props) {
     //maybe set track outside state, so component holds it until necessary to pass back
 
     useEffect(() => {
-        async function getData() {
+        function getData() {
+            return getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch());
 
+        } getData()
+            .then(data => {
+                if (data) {
+                    let newTrackId = data[0];
+                    let newArtistId = data[1];
 
-            let data = await getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch())[0]
-            debugger;
-            if (data) {
-                let newTrackId = data[0];
-                let newArtistId = data[1];
-
-                debugger;
-                if (newTrackId) {
-                    getTrack(newTrackId);
-                    handleArtistId(newArtistId);
-                } else console.log("did not receive newTrack in Like.js")
-            }
-        }getData()
+                    debugger;
+                    if (newTrackId) {
+                        getTrack(newTrackId);
+                        handleArtistId(newArtistId);
+                    } else console.log("did not receive newTrack in Like.js")
+                }
+            })   
     }, [searchStr]);
 
     async function handleLike() {

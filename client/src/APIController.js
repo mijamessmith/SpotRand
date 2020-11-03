@@ -9,8 +9,10 @@ function getASpotifyTrackFromRandomStr(searchStr) {
            return spotifyApi.searchTracks(searchStr)
                .then(data => {   
                    debugger;
-                   let trackId = data.tracks.items[Math.floor(Math.random() * 20)].id;
-                   let artistId = getArtistIdFromData(trackId);
+                   let trackData = data.tracks.items[Math.floor(Math.random() * 20)];
+                   let trackId = trackData.id
+                   let artistId = getArtistIdFromData(trackData);
+                   debugger;
                    return [trackId, artistId]
             }).catch((err) => {
                 console.log(err)

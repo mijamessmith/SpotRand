@@ -55,7 +55,7 @@ class App extends Component {
         this.getTracks = this.getTracks.bind(this);
     }
 
-    playlistIdHandler(id) {
+    playlistIdHandler = (id) => {
         this.setState({
             playlistId: id
         })
@@ -90,7 +90,7 @@ class App extends Component {
             {this.state.loggedIn &&
                 <div className="loggedIn">  
                 <Layout loggedIn={true} />
-                <Player authToken={this.state.accessToken} userId={this.state.userId} playlistIdHandler={this.state.playlistIdHandler} firstSearchString={firstTrackSearchString} />
+                <Player authToken={this.state.accessToken} userId={this.state.userId} playlistIdHandler={() => this.state.playlistIdHandler} firstSearchString={this.state.firstTrackSearchString} />
                 <button className="getTracks" onClick={this.getTracks}>get Tracks</button>
             </div>
             }

@@ -9,14 +9,28 @@ function Player(props) {
 
     var { authToken, userId, playlistIdHandler, firstSearchString } = props;
 
-    const [trackId, changeTrackId] = useState("4WhyHQ2BXi2VU1iaFbF6jv");
+    const [trackId, changeTrackId] = useState(null);
     const [playlistId, getplayListId] = useState(null);
     const [trackLikeCount, changeTrackLikeCount] = useState(0);
     const [trackDislikeCount, changeTrackDislikeCount] = useState(0);
     const [artistId, setArtistId] = useState(null);
     const [artistData, setArtistData] = useState(null);
+    const [isFirstSearch, setIsFirstSearch] = useState(true);
+
+
+    useEffect(() => {
+        if (trackId === null) {
+            debugger;
+            return updateTrackStr();
+        }
+    }, [])
 
     //state updater functions to be passed as props
+
+    const updateIsFirstSearch = () => {
+        setIsFirstSearch(false);
+    }
+
 
     const updateTrack = (tID) => {
         changeTrackId(tID)
@@ -38,36 +52,48 @@ function Player(props) {
     }
 
     const handleGetArtistInformation = async () => {
-        if (artistId) {
-            let artist = await getArtistInformation(authToken, artistId);
-            if (artist) {
+        async function getInfo() {
+        return getArtistInformation(authToken, artistId)
+        } getInfo()
+            .then(artist => {
+        if (artist) {
                 setArtistData(artist);
-            }
         } else {
-
+            console.log("Did not receive Artist Data")
         }
-    }
+            }).catch((err) => {
+                console.log(err)
+            })
+}
 
     const updatePlaylistId = (pID) => {
         getplayListId(pID);
         playlistIdHandler(pID);
     }
 
-    const updateTrackStr = () => {
+    const updateTrackStr = async () => {
         async function getData() {
-            let newTrackId = await getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch())
-            if (newTrackId) {
-                changeTrackId(newTrackId);        
+            return getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch());
+        } await getData()
+            .then(data => {
+            debugger;
+                if (data[0]) {
+                    let newTrackId = data[0];
+                    let newArtistId = data[1];
+                    updateTrack(newTrackId);
+                    setArtistId(newArtistId);
             } else console.log("did not receive newTrack in Dislike.js")
-        } getData()
+            })
     };
 
     return (
         <div className="Player">
-            <EmbeddedPlayer trackIdFromDislike={trackId} />
+            {trackId ?
+                <EmbeddedPlayer trackIdFromDislike={trackId} /> : null}
+            
             <div className="Player-icon-container">
                 <Dislike handleArtistId={handleArtistId} updateDislike={updateDislikeCount} />
-                <Like handleArtistId={handleArtistId} updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} firstSearchString={firstSearchString} />
+                <Like handleArtistId={handleArtistId} updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} isFirstSearch={isFirstSearch} updateIsFirstSearch={updateIsFirstSearch} />
                 <button className="Player-ArtistInformation" onClick={handleGetArtistInformation}>Get Info on Artist</button>
             </div>
         </div>
