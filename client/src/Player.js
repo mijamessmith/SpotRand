@@ -52,10 +52,13 @@ function Player(props) {
     }
 
     const handleGetArtistInformation = async () => {
+        debugger;
         async function getInfo() {
         return getArtistInformation(authToken, artistId)
-        } getInfo()
+        }
+        await getInfo()
             .then(artist => {
+                debugger;
         if (artist) {
                 setArtistData(artist);
         } else {

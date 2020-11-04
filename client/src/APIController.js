@@ -113,8 +113,8 @@ async function handleUpdateArtist(authToken) {
 
 async function getArtistInformation(authToken, artistId) {
     let output;
-    let address = "GET https://api.spotify.com/v1/artists/" + `${artistId}`
-    
+    let address = "https://api.spotify.com/v1/artists/" + `${artistId}`
+    debugger;
     await axios({
         method: 'GET',
         url: address,
