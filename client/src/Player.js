@@ -69,6 +69,21 @@ function Player(props) {
             })
 }
 
+    const getTracks = async () => {
+        if (playlistId) {
+            let playlistItems = await getTracksFromPlaylist(this.state.accessToken, this.state.playlistId);
+            debugger;
+            console.log(playlistItems);
+            this.setState({
+                playlist: playlistItems
+            })
+        } else {
+            //get the playlistId
+        }
+    }
+
+
+
     const updatePlaylistId = (pID) => {
         getplayListId(pID);
         playlistIdHandler(pID);
@@ -97,7 +112,9 @@ function Player(props) {
             <div className="Player-icon-container">
                 <Dislike handleArtistId={handleArtistId} updateDislike={updateDislikeCount} />
                 <Like handleArtistId={handleArtistId} updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} isFirstSearch={isFirstSearch} updateIsFirstSearch={updateIsFirstSearch} />
-                <button className="Player-ArtistInformation" onClick={handleGetArtistInformation}>Get Info on Artist</button>
+            </div>
+            <div className="Player-information">
+                <button className="Player-information-artistInfo" onClick={handleGetArtistInformation}>Get Info on Artist</button>
             </div>
         </div>
         
