@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import EmbeddedPlayer from './EmbeddedPlayer'
+import React, { useState, useEffect } from 'react';
+import EmbeddedPlayer from './EmbeddedPlayer';
 import Dislike from './Dislike';
-import Like from './Like'
+import Like from './Like';
+import ArtistInfoWindow from "./ArtistInfoWindow";
 import { getRandomStrForTrackSearch } from "./utils";
-import { getASpotifyTrackFromRandomStr, getArtistInformation } from "./APIController"
+import { getASpotifyTrackFromRandomStr, getArtistInformation, getTracksFromPlaylist } from "./APIController"
 
 function Player(props) {
 
@@ -16,11 +17,11 @@ function Player(props) {
     const [artistId, setArtistId] = useState(null);
     const [artistData, setArtistData] = useState(null);
     const [isFirstSearch, setIsFirstSearch] = useState(true);
+    const [artistInfoToggle, setArtistInfoToggle] = useState(false);
 
 
     useEffect(() => {
         if (trackId === null) {
-            debugger;
             return updateTrackStr();
         }
     }, [])
@@ -52,15 +53,16 @@ function Player(props) {
     }
 
     const handleGetArtistInformation = async () => {
-        debugger;
+       
         async function getInfo() {
         return getArtistInformation(authToken, artistId)
         }
         await getInfo()
             .then(artist => {
-                debugger;
+         
         if (artist) {
-                setArtistData(artist);
+            setArtistData(artist);
+            setArtistInfoToggle(!artistInfoToggle);
         } else {
             console.log("Did not receive Artist Data")
         }
@@ -110,12 +112,16 @@ function Player(props) {
                 <EmbeddedPlayer trackIdFromDislike={trackId} /> : null}
             
             <div className="Player-icon-container">
-                <Dislike handleArtistId={handleArtistId} updateDislike={updateDislikeCount} />
-                <Like handleArtistId={handleArtistId} updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} isFirstSearch={isFirstSearch} updateIsFirstSearch={updateIsFirstSearch} />
+                <Dislike onClick={() => setArtistInfoToggle(false) } handleArtistId={handleArtistId} updateDislike={updateDislikeCount} />
+                <Like onClick={() => setArtistInfoToggle(false) } handleArtistId={handleArtistId} updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} isFirstSearch={isFirstSearch} updateIsFirstSearch={updateIsFirstSearch} />
             </div>
             <div className="Player-information">
                 <button className="Player-information-artistInfo" onClick={handleGetArtistInformation}>Get Info on Artist</button>
             </div>
+            {artistData && artistInfoToggle === true ?
+                <ArtistInfoWindow artistData={artistData}/>
+                : null
+}
         </div>
         
         )

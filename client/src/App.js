@@ -10,6 +10,9 @@ import './assets/css/LoggedOutLanding.css';
 import './assets/css/Player.css';
 import './assets/css/PopoutInfo.css';
 import './assets/css/GenreWindow.css';
+import './assets/css/ArtistInfoWindow.css';
+
+
 
 import { getTracksFromPlaylist, getArtistInformation } from "./APIController"
 import LoggedOutLanding from './pages/LoggedOutLanding'

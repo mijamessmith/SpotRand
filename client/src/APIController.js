@@ -8,11 +8,11 @@ function getASpotifyTrackFromRandomStr(searchStr) {
 
            return spotifyApi.searchTracks(searchStr)
                .then(data => {   
-                   debugger;
+                   
                    let trackData = data.tracks.items[Math.floor(Math.random() * 20)];
                    let trackId = trackData.id
                    let artistId = getArtistIdFromData(trackData);
-                   debugger;
+                  
                    return [trackId, artistId]
             }).catch((err) => {
                 console.log(err)
@@ -68,7 +68,7 @@ async function getTracksFromPlaylist(authToken, playlistId) {
             "Content-Type": "application/json"
         }
     }).then(response => {
-        debugger;
+       
         if (response) {
             output = response.data.items;
             return response;
@@ -114,7 +114,7 @@ async function handleUpdateArtist(authToken) {
 async function getArtistInformation(authToken, artistId) {
     let output;
     let address = "https://api.spotify.com/v1/artists/" + `${artistId}`
-    debugger;
+   
     await axios({
         method: 'GET',
         url: address,
@@ -124,7 +124,7 @@ async function getArtistInformation(authToken, artistId) {
             "Content-Type": "application/json"
         }
     }).then(response => {
-        debugger;
+  
         if (response) {
             output = response.data;
             return response;
@@ -152,7 +152,7 @@ async function getArtistInformation(authToken, artistId) {
 //            "Content-Type": "application/json"
 //        }
 //    }).then(response => {
-//        debugger;
+//        S;
 //        if (response) {
 //            output = response.data;
 //            return response;

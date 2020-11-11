@@ -117,7 +117,8 @@ app.get('/callback', function(req, res) {
       form: {
         code: code,
         redirect_uri: redirect_uri,
-        grant_type: 'authorization_code'
+        grant_type: 'authorization_code',
+
       },
       headers: {
         'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
@@ -234,6 +235,4 @@ app.get("/getCredentials", cors(), (req, res, next) => {
     }
 })
 
-
-console.log('Listening on 8888');
 app.listen(8888, () => console.log('listening on 8888'));
