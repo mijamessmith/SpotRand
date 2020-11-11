@@ -96,13 +96,16 @@ function Player(props) {
             return getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch());
         } await getData()
             .then(data => {
-            debugger;
+      
                 if (data[0]) {
                     let newTrackId = data[0];
                     let newArtistId = data[1];
                     updateTrack(newTrackId);
                     setArtistId(newArtistId);
+                    return;
             } else console.log("did not receive newTrack in Dislike.js")
+            }).catch(err => {
+                console.log(err);
             })
     };
 
