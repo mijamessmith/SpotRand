@@ -35,10 +35,10 @@ async function checkIfUserHasPlaylist(authTokenFromParam) {
             "Content-Type": "application/json"
         }
     }).then(response => {
-        //;
+        
         let items = response.data.items
         let play = items.filter((ps) => ps.name == 'Testing Axios Playlist')
-        //;
+        debugger;
         if (play.length > 0) {
             let playlistId = play[0].id
             output = [true, playlistId];
@@ -124,7 +124,7 @@ async function getArtistInformation(authToken, artistId) {
             "Content-Type": "application/json"
         }
     }).then(response => {
-  
+        debugger;
         if (response) {
             output = response.data;
             return response;

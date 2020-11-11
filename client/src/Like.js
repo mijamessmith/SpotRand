@@ -4,36 +4,44 @@ import { getASpotifyTrackFromRandomStr, handleLikedTrack } from "./APIController
 import heart from './assets/images/heart.svg'
 
 export default function Like(props) {
-    var { updatePlayerTrack, updateCount, currentTrack, playlist, handleArtistId, user, authToken, updatePlaylist, isFirstSearch, updateIsFirstSearch, firstSearchString } = props;
+    var { updatePlayerTrack, updateCount, currentTrack, playlist, handleArtistId, user, authToken, updatePlaylist, isFirstSearch, firstSearchString } = props;
 
     const [searchStr, getSearchStr] = useState(firstSearchString);
-    const [track, getTrack] = useState("4WhyHQ2BXi2VU1iaFbF6jv");
+    const [track, getTrack] = useState(null);
     const [message, getMessage] = useState("Message blank")
 
     //maybe set track outside state, so component holds it until necessary to pass back
 
     useEffect(() => {
-        function getData() {
-            return getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch());
+        debugger;
+        if (isFirstSearch == false) {
+            debugger;
+            async function execute() {
 
-        } getData()
-            .then(data => {
-                if (data) {
-                    let newTrackId = data[0];
-                    let newArtistId = data[1];
+                function getData() {
+                    return getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch());
 
-                    debugger;
-                    if (newTrackId) {
-                        getTrack(newTrackId);
-                        handleArtistId(newArtistId);
-                    } else console.log("did not receive newTrack in Like.js")
-                }
-            })   
+                } await getData()
+                    .then(data => {
+                        if (data) {
+                            let newTrackId = data[0];
+                            let newArtistId = data[1];
+
+                            debugger;
+                            if (newTrackId) {
+                                getTrack(newTrackId);
+                                handleArtistId(newArtistId);
+                            } else console.log("did not receive newTrack in Like.js")
+                        }
+                    })
+            }
+            execute();
+        }
     }, [searchStr]);
 
     async function handleLike() {
         let output;
-           
+        debugger;
             if (playlist) {
       
                 await handleLikedTrack(user, currentTrack, authToken, playlist)

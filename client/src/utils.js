@@ -20,6 +20,7 @@ function getRandomStrForTrackSearch() {
 
 function getArtistIdFromData(data) {
     if (data) {
+        debugger;
         return data.artists[0].id
     } else return null;
 }

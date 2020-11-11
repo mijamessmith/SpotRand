@@ -94,7 +94,7 @@ class App extends Component {
                 <div className="loggedIn">  
                 <Layout loggedIn={true} />
                 <Player authToken={this.state.accessToken} userId={this.state.userId} playlistIdHandler={() => this.state.playlistIdHandler} firstSearchString={this.state.firstTrackSearchString} />
-                <button className="getTracks" onClick={this.getTracks}>get Tracks</button>
+                <button className="getTracks" onClick={this.state.getTracks}>get Tracks</button>
             </div>
             }
       </div>

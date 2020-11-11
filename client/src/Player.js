@@ -21,16 +21,16 @@ function Player(props) {
 
 
     useEffect(() => {
-        if (trackId === null) {
+        debugger;
+        if (isFirstSearch == true) {
+            debugger;
+            setIsFirstSearch(false);
+            debugger;
             return updateTrackStr();
         }
     }, [])
 
     //state updater functions to be passed as props
-
-    const updateIsFirstSearch = () => {
-        setIsFirstSearch(false);
-    }
 
 
     const updateTrack = (tID) => {
@@ -91,22 +91,27 @@ function Player(props) {
         playlistIdHandler(pID);
     }
 
-    const updateTrackStr = async () => {
-        async function getData() {
-            return getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch());
-        } await getData()
-            .then(data => {
-      
-                if (data[0]) {
-                    let newTrackId = data[0];
-                    let newArtistId = data[1];
-                    updateTrack(newTrackId);
-                    setArtistId(newArtistId);
-                    return;
-            } else console.log("did not receive newTrack in Dislike.js")
-            }).catch(err => {
-                console.log(err);
-            })
+    const updateTrackStr = () => {
+
+        async function execute() {
+
+            async function getData() {
+                return getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch());
+            } await getData()
+                .then(data => {
+
+                    if (data[0]) {
+                        let newTrackId = data[0];
+                        let newArtistId = data[1];
+                        updateTrack(newTrackId);
+                        setArtistId(newArtistId);
+                        return;
+                    } else console.log("did not receive newTrack in Dislike.js")
+                }).catch(err => {
+                    console.log(err);
+                })
+        }
+        execute();
     };
 
     return (
@@ -116,7 +121,7 @@ function Player(props) {
             
             <div className="Player-icon-container">
                 <Dislike onClick={() => setArtistInfoToggle(false) } handleArtistId={handleArtistId} updateDislike={updateDislikeCount} />
-                <Like onClick={() => setArtistInfoToggle(false) } handleArtistId={handleArtistId} updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} isFirstSearch={isFirstSearch} updateIsFirstSearch={updateIsFirstSearch} />
+                <Like onClick={() => setArtistInfoToggle(false) } handleArtistId={handleArtistId} updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} isFirstSearch={isFirstSearch} />  
             </div>
             <div className="Player-information">
                 <button className="Player-information-artistInfo" onClick={handleGetArtistInformation}>Get Info on Artist</button>
