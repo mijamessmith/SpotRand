@@ -246,4 +246,4 @@ async function handleLikedTrack(userID, trackID, authT, stateStoredPlaylistId = 
 
 
 
-export { getArtistInformation, getASpotifyTrackFromRandomStr, handleLikedTrack, getTracksFromPlaylist }
+export { getArtistInformation, checkIfUserHasPlaylist, getASpotifyTrackFromRandomStr, handleLikedTrack, getTracksFromPlaylist }

@@ -55,7 +55,6 @@ class App extends Component {
 
         this.playlistIdHandler = this.playlistIdHandler.bind(this);
         this.playlistTrackHandler = this.playlistTrackHandler.bind(this);
-        this.getTracks = this.getTracks.bind(this);
     }
 
     playlistIdHandler = (id) => {
@@ -68,17 +67,6 @@ class App extends Component {
         this.setState({
             playlist: tracks
         })
-    }
-
-    getTracks = async () => {
-        if (this.state.playlistId) {
-            let playlist = await getTracksFromPlaylist(this.state.accessToken, this.state.playlistId);
-            debugger;
-            console.log(playlist);
-            this.setState({
-                playlist: playlist
-            })
-        }
     }
 
 
@@ -94,7 +82,6 @@ class App extends Component {
                 <div className="loggedIn">  
                 <Layout loggedIn={true} />
                 <Player authToken={this.state.accessToken} userId={this.state.userId} playlistIdHandler={() => this.state.playlistIdHandler} firstSearchString={this.state.firstTrackSearchString} />
-                <button className="getTracks" onClick={this.state.getTracks}>get Tracks</button>
             </div>
             }
       </div>

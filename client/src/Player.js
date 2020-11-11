@@ -4,7 +4,7 @@ import Dislike from './Dislike';
 import Like from './Like';
 import ArtistInfoWindow from "./ArtistInfoWindow";
 import { getRandomStrForTrackSearch } from "./utils";
-import { getASpotifyTrackFromRandomStr, getArtistInformation, getTracksFromPlaylist } from "./APIController"
+import { getASpotifyTrackFromRandomStr, checkIfUserHasPlaylist, getArtistInformation, getTracksFromPlaylist } from "./APIController"
 
 function Player(props) {
 
@@ -18,16 +18,37 @@ function Player(props) {
     const [artistData, setArtistData] = useState(null);
     const [isFirstSearch, setIsFirstSearch] = useState(true);
     const [artistInfoToggle, setArtistInfoToggle] = useState(false);
-
+    const [playlistTracks, setPlaylistTracks] = useState(null);
 
     useEffect(() => {
         debugger;
         if (isFirstSearch == true) {
             debugger;
             setIsFirstSearch(false);
+
+            async function execute() {
+                debugger;
+                async function getData() {
+                    return checkIfUserHasPlaylist(authToken);
+                } await getData()
+                    .then(data => {
+
+                        if (data[0] === true) {
+                            getplayListId(data[1]);
+                            return;
+                        } if (data[0] == false) {
+                            getplayListId(null);
+                        } else console.log("did not receive newTrack in Dislike.js")
+                    }).catch(err => {
+                        console.log(err);
+                    })
+            }
+            execute();
             debugger;
+
+
             return updateTrackStr();
-        }
+        } 
     }, [])
 
     //state updater functions to be passed as props
@@ -52,6 +73,19 @@ function Player(props) {
         updateTrackStr();
     }
 
+    const getTracks = async () => {
+        debugger;
+        if (playlistId) {
+            debugger;
+            let playlist = await getTracksFromPlaylist(authToken, playlistId);
+            debugger;
+            console.log(playlist);
+            setPlaylistTracks(playlist);
+        }
+    }
+
+
+
     const handleGetArtistInformation = async () => {
        
         async function getInfo() {
@@ -70,20 +104,6 @@ function Player(props) {
                 console.log(err)
             })
 }
-
-    const getTracks = async () => {
-        if (playlistId) {
-            let playlistItems = await getTracksFromPlaylist(this.state.accessToken, this.state.playlistId);
-            debugger;
-            console.log(playlistItems);
-            this.setState({
-                playlist: playlistItems
-            })
-        } else {
-            //get the playlistId
-        }
-    }
-
 
 
     const updatePlaylistId = (pID) => {
@@ -124,7 +144,8 @@ function Player(props) {
                 <Like onClick={() => setArtistInfoToggle(false) } handleArtistId={handleArtistId} updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} isFirstSearch={isFirstSearch} />  
             </div>
             <div className="Player-information">
-                <button className="Player-information-artistInfo" onClick={handleGetArtistInformation}>Get Info on Artist</button>
+                <button className="Player-information-artistInfo" onClick={handleGetArtistInformation}>About Artist</button>
+                <button className="Playlist-information" onClick={getTracks}>My Tracks</button>
             </div>
             {artistData && artistInfoToggle === true ?
                 <ArtistInfoWindow artistData={artistData}/>

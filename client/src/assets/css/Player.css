@@ -46,3 +46,22 @@
     transform: scale(1.2);
     border: 4px solid green; 
 }
+
+.Playlist-information {
+    max-height: 50px;
+    max-width: 100px;
+    background-color: white;
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+    border: 3px solid black;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+
+.Playlist-information:hover {
+    transform: scale(1.2);
+    border: 4px solid green;
+}
