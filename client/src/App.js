@@ -11,6 +11,7 @@ import './assets/css/Player.css';
 import './assets/css/PopoutInfo.css';
 import './assets/css/GenreWindow.css';
 import './assets/css/ArtistInfoWindow.css';
+import './assets/css/TracksWindow.css';
 
 
 

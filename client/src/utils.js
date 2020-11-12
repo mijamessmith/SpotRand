@@ -66,12 +66,26 @@ function getRandomColor() {
     return randomColor;
 }
 
+function formatTrackDataFromArray(data) {
+    //add an object with Artist, Track Title, Album values to output array
+    let output = [];
+
+    for (let i = 0; i < data.length; i++) {
+        let obj = {}
+        obj.track = data[i].track.name;
+        obj.album = data[i].track.album.name;
+        obj.artist = data[i].track.artists[0].name;
+        output.push(obj);
+    }
+    return output;
+}
 
 export {
     getRandomColorArray,
     getHashParams,
     getRandomStrForTrackSearch,
     getQueryParams,
-    getArtistIdFromData
+    getArtistIdFromData,
+    formatTrackDataFromArray
 } 
 

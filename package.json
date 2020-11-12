@@ -4,6 +4,7 @@
   "description": "A randomized Spotify Playlist Generator",
   "main": "app.js",
   "dependencies": {
+    "@material-ui/icons": "^4.9.1",
     "cors": "^2.8.5"
   },
   "devDependencies": {},

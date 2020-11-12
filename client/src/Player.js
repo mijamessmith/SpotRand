@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import EmbeddedPlayer from './EmbeddedPlayer';
 import Dislike from './Dislike';
 import Like from './Like';
+import TracksWindow from './TracksWindow';
 import ArtistInfoWindow from "./ArtistInfoWindow";
-import { getRandomStrForTrackSearch } from "./utils";
+import { getRandomStrForTrackSearch, formatTrackDataFromArray } from "./utils";
 import { getASpotifyTrackFromRandomStr, checkIfUserHasPlaylist, getArtistInformation, getTracksFromPlaylist } from "./APIController"
 
 function Player(props) {
@@ -19,7 +20,8 @@ function Player(props) {
     const [isFirstSearch, setIsFirstSearch] = useState(true);
     const [artistInfoToggle, setArtistInfoToggle] = useState(false);
     const [playlistTracks, setPlaylistTracks] = useState(null);
-
+    const [togglePlaylistTracks, setTogglePlaylistTracks] = useState(false);
+ 
     useEffect(() => {
         debugger;
         if (isFirstSearch == true) {
@@ -80,11 +82,15 @@ function Player(props) {
             let playlist = await getTracksFromPlaylist(authToken, playlistId);
             debugger;
             console.log(playlist);
-            setPlaylistTracks(playlist);
+            let formatted = formatTrackDataFromArray(playlist);
+            setPlaylistTracks(formatted);
         }
     }
 
-
+    const handleGetTracks = async () => {
+        await getTracks();
+        setTogglePlaylistTracks(!togglePlaylistTracks);
+    }
 
     const handleGetArtistInformation = async () => {
        
@@ -145,12 +151,21 @@ function Player(props) {
             </div>
             <div className="Player-information">
                 <button className="Player-information-artistInfo" onClick={handleGetArtistInformation}>About Artist</button>
-                <button className="Playlist-information" onClick={getTracks}>My Tracks</button>
+                <button className="Playlist-information" onClick={handleGetTracks}>My Tracks</button>
             </div>
             {artistData && artistInfoToggle === true ?
                 <ArtistInfoWindow artistData={artistData}/>
                 : null
-}
+            }
+
+            {
+                playlistTracks && togglePlaylistTracks === true ?
+                    <TracksWindow playlistTracks={playlistTracks} />
+                    : null
+            }
+
+
+
         </div>
         
         )
