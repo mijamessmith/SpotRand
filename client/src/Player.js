@@ -154,13 +154,21 @@ function Player(props) {
                 <button className="Playlist-information" onClick={handleGetTracks}>My Tracks</button>
             </div>
             {artistData && artistInfoToggle === true ?
-                <ArtistInfoWindow artistData={artistData}/>
+                <ArtistInfoWindow
+                    artistData={artistData}
+                    artistInfoToggle={artistInfoToggle}
+                    setArtistInfoToggle={setArtistInfoToggle}
+                />
                 : null
             }
 
             {
                 playlistTracks && togglePlaylistTracks === true ?
-                    <TracksWindow playlistTracks={playlistTracks} />
+                    <TracksWindow
+                        playlistTracks={playlistTracks}
+                        togglePlaylistTracks={togglePlaylistTracks}
+                        setTogglePlaylistTracks={setTogglePlaylistTracks}
+                    />
                     : null
             }
 

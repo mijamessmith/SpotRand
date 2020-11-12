@@ -7,9 +7,14 @@ export default function Layout(props) {
     return (
         <div className="Layout">
             <div className="Layout-header">
-                <span className="Spotify-Logo">
+                <span className="Spotify-Logo" >
                     <a target="_blank" href="https://developer.spotify.com/documentation/web-api/quick-start/">
-                        <img className="Spotify-Logo-img" src={SpotifyLogo}></img>
+                        <img className="Spotify-Logo-img"
+                            src={SpotifyLogo}
+                            style={{
+                                "transform": "scale(1.1)"
+                            }}>
+                        </img>
                     </a>
                 </span>Tindr/Spot</div>
             <PopoutInfo />

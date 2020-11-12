@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MaterialTable from "material-table";
 
-export default function MaterialTable(props) {
+export default function TrackTable(props) {
     var { data } = props;
     const columns = [
         {
@@ -13,12 +13,26 @@ export default function MaterialTable(props) {
             field: 'track'
         },
         {
-            title: "Albumn",
-            field: 'albumn'
+            title: "Album",
+            field: 'album'
         }
     ]
 
     return (
-        <MaterialTable title="playlistTracks" data={data} columns={columns} />
+        <MaterialTable title="Liked Tracks" data={data} columns={columns}
+            options={{
+                sorting: true,
+                doubleHorizontalScroll: true,
+                headerStyle: {
+                    fontSize: "25px",
+                    fontWeight: "700",
+                    backgroundColor: "#2DE2E6"
+                },
+                rowStyle: {
+                    fontSize: "20px",
+                    color: "red"
+                }
+            }}
+        />
         )
 }

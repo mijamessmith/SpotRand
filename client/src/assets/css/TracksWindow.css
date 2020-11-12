@@ -6,9 +6,28 @@
     align-items: center;
     position: absolute;
     top: 0;
-    border: 4px solid purple;
+    right: 0;
+    border: 8px solid purple;
     border-radius: 30px;
-    background-color: white;
+    background-color: #F9C80E;
     animation: fadeIn;
     font-size: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.TracksWindow-table {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.TracksWindow img{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.TracksWindow img:hover{
+    transform: scale(1.1);
+    cursor: pointer;
 }
