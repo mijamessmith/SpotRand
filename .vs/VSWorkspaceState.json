@@ -2,9 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\client",
+    "\\client\\public",
     "\\client\\src",
-    "\\client\\src\\assets"
+    "\\client\\src\\assets",
+    "\\client\\src\\assets\\css",
+    "\\server",
+    "\\server\\node-server"
   ],
-  "SelectedNode": "\\client\\src\\LogOut.js",
+  "SelectedNode": "\\client\\src\\assets\\css\\Player.css",
   "PreviewInSolutionExplorer": false
 }
