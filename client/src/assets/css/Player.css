@@ -1,11 +1,11 @@
 .Player {
     background-image: url(../images/explode-1.svg);
-    width: 58%;
+    width: 96%;
     height: 1000px;
     background-position: center;
     background-repeat: no-repeat;
     background-size:700px;
-    position: fixed;
+    position: absolute;
     top: 40px;
     left: 50%;
     transform: translate(-50%, 0);
@@ -14,8 +14,9 @@
 .Player-icon-container {
     margin-top: 2em;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    flex-direction: row;
 }
 
 .Player-icon-container img {
@@ -32,7 +33,7 @@
 
 .Player-information-artistInfo {
     max-height: 50px;
-    max-width: 100px;
+    width: 100px;
     background-color: white;
     color: black;
     font-size: 18px;
@@ -45,12 +46,13 @@
 
 .Player-information-artistInfo:hover {
     transform: scale(1.2);
-    border: 4px solid green; 
+    border: 4px solid #ff48c4;
+    background-color: #2DE2E6;
 }
 
 .Playlist-information {
     max-height: 50px;
-    max-width: 100px;
+    width: 100px;
     background-color: white;
     color: black;
     font-size: 18px;
@@ -64,7 +66,8 @@
 
 .Playlist-information:hover {
     transform: scale(1.2);
-    border: 4px solid green;
+    border: 4px solid #ff48c4;
+    background-color: #2DE2E6;
 }
 
 .Player-information button {

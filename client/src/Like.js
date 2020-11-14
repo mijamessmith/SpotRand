@@ -13,9 +13,9 @@ export default function Like(props) {
     //maybe set track outside state, so component holds it until necessary to pass back
 
     useEffect(() => {
-        debugger;
+       
         if (isFirstSearch == false) {
-            debugger;
+          
             async function execute() {
 
                 function getData() {
@@ -26,8 +26,6 @@ export default function Like(props) {
                         if (data) {
                             let newTrackId = data[0];
                             let newArtistId = data[1];
-
-                            debugger;
                             if (newTrackId) {
                                 getTrack(newTrackId);
                                 handleArtistId(newArtistId);
@@ -41,7 +39,6 @@ export default function Like(props) {
 
     async function handleLike() {
         let output;
-        debugger;
             if (playlist) {
       
                 await handleLikedTrack(user, currentTrack, authToken, playlist)

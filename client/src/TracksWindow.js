@@ -11,7 +11,6 @@ export default function TracksWindow(props) {
 
 
     const handleToggle = () => {
-        debugger;
         setTogglePlaylistTracks(!togglePlaylistTracks);
     }
 

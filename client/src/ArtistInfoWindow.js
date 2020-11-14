@@ -11,24 +11,28 @@ export default function ArtistInfoWindow(props) {
             return "Undiscovered Artist"
         }
         else if (n <= 5) {
-            return "Extremely Low Profile  "
+            return "Rarely Heard Artist  "
         } 
         else if (n <= 12) {
-            return "Low Profile"
+            return "Low Profile Artist"
         } 
         else if (n <= 25) {
-            return "Some Profile"
+            return "Small Following Artist"
         } 
         else if (n < 40) {
-            return "Currently Very Present"
+            return "Medium Profile Artist"
         } 
 
         else if (n < 60) {
-            return "Popular Artist"
+            return "Larger Profile Artist"
         } 
 
-        else if (n < 74) {
-            return "Major Exposure"
+        else if (n < 70) {
+            return "Artist of Significant Exposure"
+        } 
+
+        else if (n <= 80) {
+            return "Popular Artist across Circles"
         } 
 
         else if (n <= 90) {
@@ -44,7 +48,6 @@ export default function ArtistInfoWindow(props) {
     var artistPopularity = getPopularity(artistData.popularity);
 
     const handleClick = () => {
-        debugger;
         setArtistInfoToggle(!artistInfoToggle);
     }
 
@@ -57,7 +60,7 @@ export default function ArtistInfoWindow(props) {
             <img className="ArtistInfoWindow-artist-img" src={artistData.images[1].url} alt="Artist Picture" />
 
             {artistData.genres ?
-                <div className="ArtistInfoWindow-genres">GENRES:
+                <div className="ArtistInfoWindow-genres"><span className="ArtistInfoWindow-Header">GENRES </span>
                      {artistData.genres.map((genre, index = 0) => (
                          <div className="ArtistInfoWindow-artist-genre" key={index}>{genre}</div>
                      )
@@ -65,9 +68,11 @@ export default function ArtistInfoWindow(props) {
                 </div>
                  : null}
 
-            <div className="artistInfoWindow-followers">FOLLOWERS: {artistData.followers.total}</div>
+            <div className="ArtistInfoWindow-followers"><span className="ArtistInfoWindow-Header">FOLLOWERS
+            <br/>
+                </span>{artistData.followers.total}</div>
 
-            <div className="artistInfoWindow-populartity">POPULARITY: {artistPopularity}</div>
+            <div className="ArtistInfoWindow-populartity"><span className="ArtistInfoWindow-Header">POPULARITY <br /> </span>{artistPopularity}</div>
         </div>
         )
 }

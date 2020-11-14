@@ -12,7 +12,7 @@ export default function Stats(props) {
     const handleClick = async () => {
         let playlist = await getTracksFromPlaylist(authToken, playlistId);
         console.log(playlist)
-        debugger;
+        
         changeVisible(!visible);
     }
 

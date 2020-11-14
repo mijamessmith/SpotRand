@@ -22,11 +22,17 @@ export default function TrackTable(props) {
         <MaterialTable title="Liked Tracks" data={data} columns={columns}
             options={{
                 sorting: true,
+                toolbar: false,
                 doubleHorizontalScroll: true,
+                pageSizeOptions: [5, 10],
+                actionsCellStyle: {
+                    fontFamily: 'Bangers, cursive'
+                },
                 headerStyle: {
                     fontSize: "25px",
                     fontWeight: "700",
-                    backgroundColor: "#2DE2E6"
+                    backgroundColor: "#2DE2E6",
+                    fontFamily: 'Bangers, cursive'
                 },
                 rowStyle: {
                     fontSize: "20px",

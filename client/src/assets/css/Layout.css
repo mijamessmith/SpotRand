@@ -6,13 +6,14 @@
     width: 230px;
     height: 500px;
     background-color: #1ca1ee;
-    position: fixed;
+    position: absolute;
     left: 2em;
     top: 8em;
     bottom: 20em;
     border-radius: 0px 0px 0px 100px;
     box-shadow: 117px 200px 3px -4px #ed5000;
     border: 5px solid gold;
+    
 }
 
 .Layout-rightDiv {
@@ -21,7 +22,7 @@
     height: 500px;
     background-color: #fbf60a;
     right: 10em;
-    position: fixed;
+    position: absolute;
     top: 8em;
     bottom: 13em;
     border-radius: 0px 0px 0px 100px;
@@ -38,7 +39,7 @@
     align-items: center;
     color: white;
     text-align: center;
-    position: fixed;
+    position: absolute;
     background-color: #cf11d1;
     top: 0px;
     height: 100px;
@@ -130,7 +131,7 @@
 .Spotify-Logo {
     width: 100px;
     height: 100px;
-    position: fixed;
+    position: absolute;
     top: 8px;
     left: 25px;
 }
@@ -142,4 +143,19 @@
 
 .Spotify-Logo-img:hover {
     cursor: pointer;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 760px) and (-webkit-min-device-pixel-ratio: 2) {
+    .Layout-leftDiv {
+        visibility: hidden;
+        clear: both;
+        display: none;
+    }
+
+    .Layout-rightDiv {
+        visibility: hidden;
+        clear: both;
+        display: none;
+    }
+
 }

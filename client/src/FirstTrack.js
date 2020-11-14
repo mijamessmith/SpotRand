@@ -4,14 +4,11 @@ import { getASpotifyTrackFromRandomStr } from './APIController';
 
 export default function FirstTrack() {
     useEffect(() => {
-        async function getData() 
+        async function getData() {
             let data = await getASpotifyTrackFromRandomStr(getRandomStrForTrackSearch())[0]
-            debugger;
             if (data) {
                 let newTrackId = data[0];
                 let newArtistId = data[1];
-
-                debugger;
                 if (newTrackId) {
                     getTrack(newTrackId);
                     handleArtistId(newArtistId);

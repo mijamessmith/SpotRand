@@ -21,15 +21,13 @@ function Player(props) {
     const [artistInfoToggle, setArtistInfoToggle] = useState(false);
     const [playlistTracks, setPlaylistTracks] = useState(null);
     const [togglePlaylistTracks, setTogglePlaylistTracks] = useState(false);
- 
+    const [clicked, setClicked] = useState(false);
+
     useEffect(() => {
-        debugger;
         if (isFirstSearch == true) {
-            debugger;
             setIsFirstSearch(false);
 
             async function execute() {
-                debugger;
                 async function getData() {
                     return checkIfUserHasPlaylist(authToken);
                 } await getData()
@@ -46,9 +44,6 @@ function Player(props) {
                     })
             }
             execute();
-            debugger;
-
-
             return updateTrackStr();
         } 
     }, [])
@@ -76,11 +71,8 @@ function Player(props) {
     }
 
     const getTracks = async () => {
-        debugger;
         if (playlistId) {
-            debugger;
             let playlist = await getTracksFromPlaylist(authToken, playlistId);
-            debugger;
             console.log(playlist);
             let formatted = formatTrackDataFromArray(playlist);
             setPlaylistTracks(formatted);
@@ -140,14 +132,20 @@ function Player(props) {
         execute();
     };
 
+    const wasClicked = () => {
+        setClicked(true);
+        setTimeout(() => setClicked(false), 500);
+    }
+
+
     return (
         <div className="Player">
             {trackId ?
                 <EmbeddedPlayer trackIdFromDislike={trackId} /> : null}
             
             <div className="Player-icon-container">
-                <Dislike onClick={() => setArtistInfoToggle(false) } handleArtistId={handleArtistId} updateDislike={updateDislikeCount} />
-                <Like onClick={() => setArtistInfoToggle(false) } handleArtistId={handleArtistId} updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} isFirstSearch={isFirstSearch} />  
+                <Dislike wasClicked={wasClicked} onClick={() => setArtistInfoToggle(false) && setTogglePlaylistTracks(false)} handleArtistId={handleArtistId} updateDislike={updateDislikeCount} />
+                <Like wasClicked={wasClicked} onClick={() => setArtistInfoToggle(false) && setTogglePlaylistTracks(false) } handleArtistId={handleArtistId} updatePlayerTrack={updateTrack} updateCount={updateTrackLikeCount} currentTrack={trackId} user={userId} authToken={authToken} playlist={playlistId} updatePlaylist={updatePlaylistId} isFirstSearch={isFirstSearch} />  
             </div>
             <div className="Player-information">
                 <button className="Player-information-artistInfo" onClick={handleGetArtistInformation}>About Artist</button>
