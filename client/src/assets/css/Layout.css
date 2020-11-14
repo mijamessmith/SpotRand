@@ -33,11 +33,11 @@
 .Layout-header {
     display: flex;
     font-family: 'Bungee Shade', cursive;
-    font-size: 40px;
+    font-size: 55px;
     letter-spacing: 1px;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
     text-align: center;
     position: absolute;
     background-color: #cf11d1;
@@ -48,14 +48,24 @@
     font-weight: 500;
 }
 
-.Layout-footer{
+.Layout-header-title {
+    background-color: white;
+    height: 100px;
+    line-height: 100px;
+    padding-right: 30px;
+    padding-left: 30px;
+    text-align: center;
+    width: auto;
+    color: black;
+}
+
+.Layout-footer {
     background-color: #17e07d;
     position: absolute;
     bottom: 0;
     height: 120px;
     width: 100%;
     color: white;
-
 }
 
 .LinkToLogIn {
@@ -139,10 +149,14 @@
 .Spotify-Logo-img {
     width: 80px;
     height: 80px;
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    cursor: pointer;
 }
 
 .Spotify-Logo-img:hover {
-    cursor: pointer;
+    transform: scale(1.1)
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 760px) and (-webkit-min-device-pixel-ratio: 2) {

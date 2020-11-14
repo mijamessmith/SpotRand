@@ -16,7 +16,7 @@ export default function Layout(props) {
                             }}>
                         </img>
                     </a>
-                </span>Tindr/Spot</div>
+                </span><span className="Layout-header-title">Tindr/Spot</span></div>
             <PopoutInfo />
             <div className="Layout-leftDiv"></div>
             <div className="Layout-rightDiv"></div>

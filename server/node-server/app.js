@@ -16,8 +16,8 @@ const Promise = require('bluebird');
 const app = express();
 
 /*---------------------------API Credentials to be later saved as .ENV ----------------*/
-var client_id = '51ba49426fbd4113a06188a78f960c17'
-var client_secret = '98ffa87064d04951ae4081bd7181993b'
+var client_id = process.env.REACT_APP_client_id;
+var client_secret = process.env.REACT_APP_client_secret
 var redirect_uri = 'http://localhost:8888/callback'
 
 
