@@ -235,4 +235,6 @@ app.get("/getCredentials", cors(), (req, res, next) => {
     }
 })
 
-app.listen(8888, () => console.log('listening on 8888'));
+const PORT = process.env.PORT || 8888;
+
+app.listen(PORT, () => console.log(`node server started on PORT: ${PORT}`));
